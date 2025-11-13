@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Asistente de Tienda Electrónica</title>
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='style.css') }}"
+        />
+    </head>
+    <body>
+        <div class="chat-container">
+            <div class="chat-header">
+                <h2>Asistente de Compras</h2>
+                <p>Desplegado y funcionando ✅</p>
+            </div>
+            <div class="chat-box" id="chat-box">
+                <!-- Los mensajes del chat aparecerán aquí -->
+                <div class="message bot-message">
+                    <p>
+                        ¡Hola! 👋 Soy tu asistente de compras. Estoy aquí para
+                        ayudarte a crear, consultar o pagar un pedido. ¿En qué
+                        puedo ayudarte?
+                    </p>
+                </div>
+            </div>
+            <div class="chat-input">
+                <input
+                    type="text"
+                    id="user-input"
+                    placeholder="Escribe tu mensaje aquí..."
+                />
+                <button id="send-btn" aria-label="Enviar"></button>
+            </div>
+        </div>
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
+    </body>
+</html>

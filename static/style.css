@@ -1,0 +1,176 @@
+/* --- Import Google Fonts --- */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+/* --- CSS Variables for Modern Theming --- */
+:root {
+    --primary-color: #6a5af9;
+    --primary-color-dark: #5a4b_e9;
+    --background-color: #f0f2f5;
+    --surface-color: #ffffff;
+    --text-color: #333333;
+    --secondary-text-color: #6c757d;
+    --bot-message-bg: #eef1f4;
+    --border-color: #e_de_e6;
+    --shadow-color: rgba(0, 0, 0, 0.08);
+    --font-family: "Poppins", sans-serif;
+}
+
+/* --- General Body Styling --- */
+body {
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: var(--text-color);
+}
+
+/* --- Main Chat Container --- */
+.chat-container {
+    width: 420px;
+    height: 90vh;
+    max-height: 700px;
+    background-color: var(--surface-color);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px var(--shadow-color);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+/* --- Chat Header --- */
+.chat-header {
+    background-color: var(--surface-color);
+    color: var(--text-color);
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.chat-header h2 {
+    margin: 0;
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.chat-header p {
+    margin: 5px 0 0;
+    font-size: 0.9em;
+    color: var(--secondary-text-color);
+}
+
+/* --- Chat Message Area --- */
+.chat-box {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* --- Message Bubbles --- */
+.message {
+    max-width: 85%;
+    padding: 12px 18px;
+    border-radius: 20px;
+    line-height: 1.5;
+    word-wrap: break-word;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeIn 0.4s forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.bot-message {
+    background-color: var(--bot-message-bg);
+    color: var(--text-color);
+    align-self: flex-start;
+    border-bottom-left-radius: 5px;
+}
+
+.user-message {
+    background-color: var(--primary-color);
+    color: var(--surface-color);
+    align-self: flex-end;
+    border-bottom-right-radius: 5px;
+}
+
+/* --- Chat Input Area --- */
+.chat-input {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--surface-color);
+    flex-shrink: 0;
+}
+
+#user-input {
+    flex-grow: 1;
+    border: none;
+    background-color: var(--bot-message-bg);
+    border-radius: 25px;
+    padding: 12px 20px;
+    font-size: 1em;
+    font-family: var(--font-family);
+    outline: none;
+    transition: box-shadow 0.2s;
+}
+
+#user-input:focus {
+    box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+#send-btn {
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 70%;
+    width: 60px;
+    height: 50px;
+    margin-left: 0px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition:
+        background-color 0.2s,
+        transform 0.2s;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 2L11 13M22 2L15 22l-4-9-9-4 20-6z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 22px;
+}
+
+#send-btn:hover {
+    background-color: var(--primary-color-dark);
+    transform: scale(1.05);
+}
+
+/* --- Custom Scrollbar --- */
+.chat-box::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat-box::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.chat-box::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 8px;
+}
+
+.chat-box::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+}

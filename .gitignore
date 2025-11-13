@@ -1,0 +1,22 @@
+# Virtual environment
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Environment variables
+.env
+*.env
+
+# Database
+*.sqlite3
+
+# Logs
+*.log
+
+# macOS specific files
+.DS_Store
+
+.despliegue.sh
+despliegue.sh

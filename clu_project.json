@@ -1,0 +1,91 @@
+{
+  "projectFileVersion": "2022-10-01-preview",
+  "stringIndexType": "Utf16CodeUnit",
+  "metadata": {
+    "projectName": "chatbot-ecommerce-import",
+    "storageInputContainerName": "chatbot-ecommerce-import",
+    "projectKind": "Conversation",
+    "description": "Modelo de lenguaje para un chatbot de e-commerce.",
+    "language": "es",
+    "multilingual": false,
+    "settings": {}
+  },
+  "assets": {
+    "projectKind": "Conversation",
+    "intents": [
+      { "category": "CrearPedido" },
+      { "category": "ConsultarPedido" },
+      { "category": "PagarPedido" },
+      { "category": "PreguntasFrecuentes" },
+      { "category": "None" }
+    ],
+    "entities": [
+      { "category": "Producto", "composition": [] },
+      { "category": "MetodoPago", "composition": [] },
+      { "category": "IdPedido", "composition": [] },
+      { "category": "TemaPregunta", "composition": [] },
+      { "category": "Cantidad", "prebuilt": "Quantity" }
+    ],
+    "utterances": [
+      {
+        "text": "quiero comprar un teclado",
+        "intent": "CrearPedido",
+        "entities": [{ "category": "Producto", "offset": 18, "length": 7 }]
+      },
+      {
+        "text": "necesito dos monitores con tarjeta",
+        "intent": "CrearPedido",
+        "entities": [
+          { "category": "Cantidad", "offset": 9, "length": 3 },
+          { "category": "Producto", "offset": 13, "length": 9 },
+          { "category": "MetodoPago", "offset": 28, "length": 7 }
+        ]
+      },
+      {
+        "text": "quiero saber el estado de mi pedido 12345",
+        "intent": "ConsultarPedido",
+        "entities": [{ "category": "IdPedido", "offset": 30, "length": 11 }]
+      },
+      {
+        "text": "cómo va mi orden #789",
+        "intent": "ConsultarPedido",
+        "entities": [{ "category": "IdPedido", "offset": 12, "length": 10 }]
+      },
+      {
+        "text": "quiero pagar el pedido 5",
+        "intent": "PagarPedido",
+        "entities": [{ "category": "IdPedido", "offset": 18, "length": 8 }]
+      },
+      {
+        "text": "realizar el pago del pedido 7",
+        "intent": "PagarPedido",
+        "entities": [{ "category": "IdPedido", "offset": 22, "length": 8 }]
+      },
+      {
+        "text": "¿cuál es su horario de atención?",
+        "intent": "PreguntasFrecuentes",
+        "entities": [{ "category": "TemaPregunta", "offset": 13, "length": 7 }]
+      },
+      {
+        "text": "¿hacen envíos gratis?",
+        "intent": "PreguntasFrecuentes",
+        "entities": [{ "category": "TemaPregunta", "offset": 8, "length": 6 }]
+      },
+      {
+        "text": "¿cómo puedo devolver un pedido?",
+        "intent": "PreguntasFrecuentes",
+        "entities": [{ "category": "TemaPregunta", "offset": 12, "length": 8 }]
+      },
+      {
+        "text": "hola",
+        "intent": "None",
+        "entities": []
+      },
+      {
+        "text": "¿qué hora es?",
+        "intent": "None",
+        "entities": []
+      }
+    ]
+  }
+}
