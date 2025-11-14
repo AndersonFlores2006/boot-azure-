@@ -1,39 +1,121 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Asistente de Tienda Electrónica</title>
-        <link
-            rel="stylesheet"
-            href="{{ url_for('static', filename='style.css') }}"
-        />
-    </head>
-    <body>
-        <div class="chat-container">
-            <div class="chat-header">
-                <h2>Asistente de Compras</h2>
-                <p>Desplegado y funcionando ✅</p>
-            </div>
-            <div class="chat-box" id="chat-box">
-                <!-- Los mensajes del chat aparecerán aquí -->
-                <div class="message bot-message">
-                    <p>
-                        ¡Hola! 👋 Soy tu asistente de compras. Estoy aquí para
-                        ayudarte a crear, consultar o pagar un pedido. ¿En qué
-                        puedo ayudarte?
-                    </p>
-                </div>
-            </div>
-            <div class="chat-input">
-                <input
-                    type="text"
-                    id="user-input"
-                    placeholder="Escribe tu mensaje aquí..."
-                />
-                <button id="send-btn" aria-label="Enviar"></button>
-            </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TecnoMundo - Blog y Tienda</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="container">
+        <h1 class="logo">TecnoMundo</h1>
+        <nav>
+          <a href="#blog">Blog</a>
+          <a href="#tienda">Tienda</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section id="blog">
+        <h2>Últimas Entradas del Blog</h2>
+        <div class="blog-posts">
+          <article class="post">
+            <img src="/static/images1.jpeg" alt="Imagen de post" />
+            <h3>Los mejores gadgets de 2024</h3>
+            <p>
+              Un vistazo a los dispositivos más innovadores que este año nos ha
+              ofrecido...
+            </p>
+            <a href="#" class="read-more">Leer más</a>
+          </article>
+          <article class="post">
+            <img src="/static/images2.jpeg" alt="Imagen de post" />
+            <h3>Guía para armar tu PC Gamer</h3>
+            <p>
+              Te guiamos paso a paso para que construyas la computadora de tus
+              sueños...
+            </p>
+            <a href="#" class="read-more">Leer más</a>
+          </article>
         </div>
-        <script src="{{ url_for('static', filename='script.js') }}"></script>
-    </body>
+      </section>
+
+      <section id="tienda">
+        <h2>Nuestros Productos</h2>
+        <div class="product-grid">
+          <div class="product-card">
+            <img src="/static/iphone.webp" alt="Producto" />
+            <h3>Smartphone X</h3>
+            <p class="price">$799.99</p>
+            <button class="add-to-cart">Añadir al carrito</button>
+          </div>
+          <div class="product-card">
+            <img src="/static/laptop.jpeg" alt="Producto" />
+            <h3>Laptop Pro</h3>
+            <p class="price">$1299.99</p>
+            <button class="add-to-cart">Añadir al carrito</button>
+          </div>
+          <div class="product-card">
+            <img src="/static/jbl.webp" alt="Producto" />
+            <h3>Auriculares Inalámbricos</h3>
+            <p class="price">$199.99</p>
+            <button class="add-to-cart">Añadir al carrito</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="main-footer">
+      <div class="container">
+        <p>&copy; 2024 TecnoMundo. Todos los derechos reservados.</p>
+      </div>
+    </footer>
+
+    <!-- Chatbot flotante -->
+    <div class="chat-toggle-btn" id="chat-toggle-btn">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path
+          d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h8.58a2 2 0 0 1 1.42.59l4.42 4.42a2 2 0 0 1 .58 1.42V15z"
+        ></path>
+      </svg>
+    </div>
+
+    <div class="chat-container hidden" id="chat-container">
+      <div class="chat-header">
+        <h2>Asistente de Compras</h2>
+        <button class="close-chat-btn" id="close-chat-btn">&times;</button>
+      </div>
+      <div class="chat-box" id="chat-box">
+        <div class="message bot-message">
+          <p>¡Hola! 👋 Soy tu asistente de compras. ¿En qué puedo ayudarte?</p>
+        </div>
+      </div>
+      <div class="chat-input">
+        <input
+          type="text"
+          id="user-input"
+          placeholder="Escribe tu mensaje..."
+        />
+        <button id="send-btn" aria-label="Enviar"></button>
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
 </html>
