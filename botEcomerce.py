@@ -220,21 +220,43 @@ def handle_pagar_pedido(entities):
     return f"¡Gracias! Se ha registrado el pago para el pedido #{id_pedido}."
 
 
+def normalize_keyword(keyword):
+    """Normaliza una palabra a su forma singular para la búsqueda en la BD."""
+    keyword = keyword.lower()
+    # Reglas simples de pluralización para este caso de uso
+    if keyword.endswith("es"):
+        # Ej: "horarios" -> "horario", "devoluciones" -> "devolucion"
+        # (Asume que la 's' final no es parte de la palabra original)
+        if keyword[:-2] in ["horario", "devolucion", "envio"]:
+             return keyword[:-2]
+    if keyword.endswith("s"):
+        # Ej: "garantías" -> "garantía"
+        if keyword[:-1] in ["garantia", "envio", "horario", "devolucione"]:
+            return keyword[:-1]
+    return keyword
+
+
 def handle_preguntas_frecuentes(entities):
     """Busca una respuesta a una pregunta frecuente en la base de datos."""
-    tema = next((e["text"] for e in entities if e["category"] == "TemaPregunta"), None)
+    tema_original = next(
+        (e["text"] for e in entities if e["category"] == "TemaPregunta"), None
+    )
 
-    if not tema:
-        return "Tengo respuestas a preguntas sobre horarios, envíos, devoluciones, métodos de pago y más. ¿Sobre qué te gustaría saber?"
+    if not tema_original:
+        return "Tengo respuestas a preguntas sobre horarios, envíos, devoluciones, garantía y métodos de pago. ¿Sobre qué te gustaría saber?"
 
-    sql = "SELECT Respuesta FROM PreguntasFrecuentes WHERE PalabraClave LIKE ?;"
-    param = f"%{tema}%"
+    # Normaliza el tema para que coincida con la palabra clave (ej. "horarios" -> "horario")
+    tema_normalizado = normalize_keyword(tema_original)
+
+    # Se utiliza COLLATE para que la búsqueda no distinga entre acentos (ej. "envio" vs "envío")
+    sql = "SELECT Respuesta FROM PreguntasFrecuentes WHERE PalabraClave COLLATE Latin1_General_CI_AI LIKE ? COLLATE Latin1_General_CI_AI;"
+    param = f"%{tema_normalizado}%"
     result = execute_db_query(sql, (param,), fetch="one")
 
     if result:
         return result[0]
     else:
-        return f"No encontré una respuesta específica sobre '{tema}'. Puedo ayudarte con temas como horarios, envíos o devoluciones."
+        return f"No encontré una respuesta específica sobre '{tema_original}'. Puedo ayudarte con temas como horarios, envíos, devoluciones, garantía o métodos de pago."
 
 
 # --- Rutas de la API ---
@@ -260,6 +282,26 @@ def chat():
         query_keywords = ["estado", "está", "cómo va", "situación"]
         if any(keyword in user_message.lower() for keyword in query_keywords):
             top_intent = "ConsultarPedido"
+
+        # Red de seguridad para Preguntas Frecuentes para mejorar la precisión
+        faq_keywords = [
+            "horario",
+            "envío",
+            "devolución",
+            "garantía",
+            "pago",
+            "política de",
+            "información sobre",
+            "atienden",
+            "aceptan",
+        ]
+        # Si el mensaje parece una pregunta y no una orden directa
+        if any(keyword in user_message.lower() for keyword in faq_keywords):
+            is_order = top_intent == "CrearPedido" and any(
+                e["category"] == "Producto" for e in entities
+            )
+            if not is_order:
+                top_intent = "PreguntasFrecuentes"
 
         if top_intent == "CrearPedido" or conversation_state:
             bot_response, conversation_state = handle_crear_pedido(
